@@ -62,6 +62,8 @@ Linux学习
 		变化形式：.|:
 			fliename.（fliename:）文件名    同时修改用户及用户组
 			fliename.fliename1（fliename：fliename1）文件名        				修改用户为fliename，组为fliename1
+			.|:fliename 修改用户组
+			fliename 修改拥有者
 	chgrp：修改文件所属组
 	getfacl：查看文件的acl权限
 	setfacl：设置权限
@@ -70,7 +72,124 @@ Linux学习
 		-b 删除整个acl权限【setfacl -b 文件名】
 		-R 递归设置
 4》软件安装及服务操作
+	源仓库安装方式：
+		yum install softpackage【redhat，centos，fedora】
+		apt-get install softpackage【deb】
+	源码安装：
+		1》下载
+		2》解档  tar -xcvfzjt
+			参数意义：解档|建档|过程可见|指定文件|gzip格式|bz2格式|				查看
+		3》进入解档目录
+		4》查看文档【一般文档名为RESDME.md】
+		5》一般方法：./configure  make  sudo make install
+		6》软连接至/usr/bin/中   ln -s 链接源 链接目标
+	服务管理命令：
+		【centos7及以上版本，radhat7及以上版本，fadora16及以上版本】
+		systemctl start|stop|reload|restart|enable|disable|status serric		ename
+		启动|停止|重置|重起|开机启动|开机不启动|查看状态
+		mariadb -sever 或 mysgld
+		【ubuntu】
+		service servicename （参数内容同上）
 5》计划任务
+	一次性计划任务：
+		at：时间 回车 任务命令 回车 ....... ctrl+d（退出）
+		atrm：删除任务 后跟任务编号
+		atq：查询任务
+	周期性计划任务：
+		crantab 回车 分 时 日 月 周 命令 回车.......ctrl+d（退出）
+		*|-|/|， 通配|区间|步进|同时
 6》git操作
+	1》创建目录  mkdir mygit
+	2》进入目录  cd mygit/
+	3》创建仓库  git init
+	4》操作文件  
+	5》加入暂存区  git add 文件名
+	6》提交（必须使用-m进行注释）git commit -m "注释"
+	命令均在仓库中运行：
+		git init： 创建仓库
+		git status：查看仓库状态
+		git log：查看仓库日志
+		git reflog：查看操作日志
+		git reset --hard 强制回退 HEAD指向当前版本 ^向前一个版本
+			~n向前n个版本  亦可使用commiyid
+		git add：加入暂存区  *全部通配，可使用正则匹配
+		git commit：提交  -m "注释"
+		git chechout：切换分支 -b 创建分支并切换（后跟分支名）
+		git merge：合并指定分支到当前分支
+		git branch：查看或创建分支 -d 删除分支（后跟分支名为创建，否则不			    跟分支名为查看）
+	远程仓库操作：
+		git clone：（后跟ssh地址）在当前目录下克隆一个远程仓库，该仓库文			    件夹与远程仓库名同名
+		以下命令在clone库文件夹下执行：
+			git remote add 别名 ssh地址：添加远程别名
+			git push 别名：推送当前仓库内容到远程仓库
+		ssh-keygen -t rsa -C username：根据用户名创建rsa密钥对
 7》python环境搭建
+	1》去www.python.org python官方网站下载python源码包
+	2》解档
+	3》进入解档目录
+	4》执行sudo yum install -y gcc
+	5》执行sudo yum install -y zlib*
+	6》执行./configure  make  sudo make install
+	7》执行ln -s /usr/local/bin/python3 /usr/bin/python3
+	8》去pycharm官方网站下载pycharm源码包
+	9》解档
+	10》执行ln -s{install_dir}/bin/pycharm.sh /usr/bin/pycharm
+	    【install_dir为解档后的目录路径】
+	11》执行pycharm打开pycharm编辑器
+	12》修改运行python版本为python3
 8》进程管理
+	pstree：查看进程树
+	ps：查看进程【常用参数】-aux  -ef
+	top：动态方式查看进程
+		相关操作详看ppt（后期补充）
+	命令&将命令以后台方式运行：
+		jobs：查看后台进程组
+		bg + 后台进程组编号：将后台挂起，进程重新启动
+		fg + 后台进程组编号：将后台进程调至前台运行
+		ctrl+c：中断当前前台进程
+		nice -n 命令：将命令从n优先级运行
+		nice -n pid：将指定进程优先级改为n
+			     【进程优先级-20～19，数值越小，优先级越高】
+		kill -signol pid：向指定进程发送信号【1信号：重置/2信号：中断/9  				  信号：强制退出/15信号：正常退出】
+		pkill -signol：向参数指定的一类进行发送信号
+			-t：指定终端号
+			-u：指定进程所属用户
+			-g：指定进程所属组
+		pgrep：根据进程名查询进程pid
+			-l：显示进程名，可使用正则匹配进程名
+9》电源管理
+	shutdown：关机
+	reboot：重起
+	poweroff：立即关机
+10》命令窗口
+	vim编辑界面：
+		i：进入插入模式
+		a：当前位置之后进入插入模式
+		s：删除当前字符进入插入模式
+		x：删除当前字符
+		dd：删除当前行
+		gg：光标移动到第一行
+		nG：光标移动到第n行
+		G：移动到最后一行
+		:：进入底线模式
+		:!：临时执行命令
+		:.!：将执行的命令结果打印到当前位置
+		cc：删除当前行并进入编辑模式
+		y：复制
+		p：粘贴
+		nyy：复制n行
+		v：进入选择模式
+			h：光标前移
+			j：光标下移
+			k：光标上移
+			l：光标后移
+		u：撤销
+		ctrl+r：反撤销
+		end：跳到行尾
+		home：跳到行首
+		:w：写入
+		:w>>文件名：写入后面的文件内
+		:w!：强制写入
+		:q：退出
+		1，9w>>文件名：1-9行的内容输出到文件内
+【以上内容为linux基础命令，后有机会会继续补充】
