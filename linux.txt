@@ -1,0 +1,76 @@
+Linux学习
+1》文件操作
+	查看：tree path|dir  以树状结构查看path|dir指定的目录内容
+	符号：.|..|-|～|/  当前|上一级|上一次|当前用户家|根
+	pwd：查看当前工作目录的绝对路径
+	ls：查看指定的path（路径）或dir下的文件
+		-l 长格式  -a 全部，包含隐藏文件  -d查看目录本身  -h 人性化
+	cat：查看文件内容，一次性显示
+	less：查看文件内容，分页显示，结束不退出
+	more：查看文件内容，分页显示，结束时退出
+	tail：查看文件结尾  -f 动态，一般查看log日志
+	head -n：一般查看文件头部n行
+	touch：touch filename 若filename不存在则创建，否则修改文件时间戳
+	stat：stat fliename 查看文件状态属性
+	rm：删除文件
+		-r 递归删除目录  -f强制，不提示删除  -i 交互模式删除
+	mkdir：创建目录  -p 递归创建目录
+	cp：cp 源 目标  将源位置文件复制到目标位置
+		-r 复制目录文件  -p 保留源权限属性
+	mv：mv 源 目标  将源位置文件移动到目标位置 【参数同cp】
+	scp：scp 源 目标 将源位置文件复制到目标位置，需要ssh协议以及服务支撑
+		目标源格式：用户名@主机地址：端口号默认22/文件路径
+	wc：统计文件内容
+		-l 行数  -w 单词  -c 字符
+	cut：按列显示内容
+		-d 指定列分隔符 单字符   -f 显示列编号，从1开始
+	file：查看文件内容
+	grep：过滤内容
+		-v 匹配之外，过滤匹配为正则表达式
+	>>：输出重定向并追加
+	>：输出重定向并覆盖【前边命令的输出，输出到后面的文件或管道文件中】
+	|：管道【前一个命令的输出作为第二个命令的输入】
+	du：统计文件大小  -s 统计目录
+2》用户操作
+	whoami：查看当前工作用户名
+	who：查看当前登陆用户
+	/etc/passwd：该文件保存系统中的所有用户信息
+	/etc/shadow：该文件保存用户的密码及密码策略
+	/etc/group：该文件保存用户组的信息
+	useradd：创建用户
+		-d 指定用户家目录  -s 指定用户登陆shall  -g 指定用户组id
+	userdel：删除用户
+		-r 删除同时删除家目录及邮件文件
+	usermod：修改用户
+		-d 修改用户家目录  -s 修改用户登陆shall  -a 追加  -G 附加组  
+		-g 默认组
+	passwd：修改用户密码 【不指定用户名时则修改当前用户密码】
+	su：切换用户
+	sudo：临时获取权限
+	visudo：编辑sudo设置
+	exit：用户退出
+	groupadd：创建组
+	groupdel：删除组
+3》权限操作
+	chmod：修改权限
+		u|g|o|a  +|-  r|w|x|s|t
+		针对拥有着|拥有组|其他人|所有人  新增|减少  读|写|执行|二进制临 		时|以及临时目录
+		r=4 w=2 x=1 suid=4 sgid=2 sticky=1 umask=0002（默认值）
+	chmod nnn fliename：按指定权限模型授予文件权限【读|写|执行】
+	chmod nnnn fliename：按指定权限模型授予文件权限
+	chown：修改文件用户所属用户信息
+		变化形式：.|:
+			fliename.（fliename:）文件名    同时修改用户及用户组
+			fliename.fliename1（fliename：fliename1）文件名        				修改用户为fliename，组为fliename1
+	chgrp：修改文件所属组
+	getfacl：查看文件的acl权限
+	setfacl：设置权限
+		-m 针对某个用户或组设置acl权限【setfacl -m u：username：权限 fil			e/dir】
+		-x 删除某个用户或组的acl权限【setfacl -x g：tgroup 文件名】
+		-b 删除整个acl权限【setfacl -b 文件名】
+		-R 递归设置
+4》软件安装及服务操作
+5》计划任务
+6》git操作
+7》python环境搭建
+8》进程管理
